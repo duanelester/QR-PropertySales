@@ -1,0 +1,589 @@
+<div class="container-fluid">
+  <div class="row page-titles" style="padding-bottom:0px;">
+      <div class="col-md-5 col-8 align-self-center">
+          <h3 class="text-themecolor m-b-0 m-t-0" *ngIf="!isHouse">Lots Management</h3>
+          <h3 class="text-themecolor m-b-0 m-t-0" *ngIf="isHouse">House Management</h3>
+      </div>
+
+      <div class="col-md-7 col-4 align-self-center">
+          <div class="d-flex m-t-10 justify-content-end">
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                  <a (click)="toggleIsLots()">
+                      <label class="btn btn-secondary active">
+                          <input type="radio" name="options" id="option1" autocomplete="off" checked> Lots
+                      </label>
+                  </a>
+                  <a (click)="toggleIsHouse()">
+                  <label class="btn btn-secondary">
+                      <input type="radio" name="options" id="option2" autocomplete="off"> Houses
+                  </label>
+                  </a>
+              </div>
+          </div>
+      </div>
+  </div>
+  <hr>
+  <div class="row page-titles title-padding">
+      <div class="col-md-5 col-8 align-self-center">
+          <ul id="select-title">
+              <li>
+                  <h4>Select a project</h4>
+              </li>
+              <li>
+                  <a href="#" aria-expanded="false" data-toggle="modal" data-target=".lots-modal" *ngIf="!isHouse">
+                      <span><font size="2">create new</font></span></a>
+                  <a href="#" aria-expanded="false" data-toggle="modal" data-target=".house-modal" *ngIf="isHouse">
+                      <span><font size="2">create new suggested house</font></span></a>
+              </li>
+          </ul>
+      </div>
+      <div class="col-md-7 col-4 align-self-center">
+          <div class="d-flex m-t-10 justify-content-end">
+              <ul id="right-menulist">
+                  <li class="nav-item hidden-sm-down search-box">
+                      <a href="javascript:void(0)" aria-expanded="false"><i class="fa fa-search"></i>
+                          <span class="hide-menu">Search</span></a>
+                      <form class="app-search">
+                          <input type="text" class="form-control" placeholder="Search & enter"> <a class="srh-btn"><i class="ti-close"></i></a></form>
+                  </li>
+                  <li>
+                      <a href="#" aria-expanded="false"><i class="mdi mdi-view-headline"></i>
+                          <span class="hide-menu">View All</span></a>
+                  </li>
+                  <li>
+                      <a href="#" aria-expanded="false"><i class="mdi mdi-view-list"></i>
+                          <span class="hide-menu">List</span></a>
+                  </li>
+                  <li>
+                      <a href="#" aria-expanded="false" class="selected-menu"><i class="mdi mdi-view-grid"></i>
+                          <span class="hide-menu">Grid</span></a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </div>
+  <br>
+  <!-- Lots Management -->
+  <div class="row" *ngIf="!isHouse">
+      <div *ngFor="let house of houses" class="col-lg-3 col-md-6 body-padding">
+          <a routerLink="/projectproperty/{{house.id}}">
+              <div class="card">
+                  <div class="card-body" style="padding: 0px">
+                      <div class="d-flex flex-row">
+                          <div class="col-4" style="padding-left: 0px;">
+                              <img src="{{house.image}}" alt="House Project" height="117" width="117" class="align-self-center" />
+                          </div>
+                          <div class="col-8 m-l-10 align-self-center">
+                              <h5 class="m-b-0 font-light">{{house.name}}</h5>
+                              <h6 class="text-muted m-b-0 font-light">{{house.address}}</h6>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </a>
+      </div>
+      <div class="col-lg-3 col-md-6 body-padding">
+          <div class="card text-center">
+              <div class="card-body">
+                  <div class="m-l-10 align-self-center">
+                      <a href="#" aria-expanded="false" data-toggle="modal" data-target=".lots-modal">
+                          <div class="round round-lg align-self-center round-info"><i class="ti ti-plus"></i></div>
+                          <h5 class="m-b-0 font-light">Create New Projects</h5>
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- create new modal - lots management -->
+  <div class="modal fade wizard-content lots-modal" id="createNewModal" role="dialog" aria-labelledby="lotsModalLabel" aria-hidden="true"
+      style="display: none;">
+      <div class="modal-dialog modal-full">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h4 class="modal-title" id="lotsModalLabel">Create New Project Wizard</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              </div>
+
+              <div class="modal-body">
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs customtab" role="tablist">
+                      <li class="nav-item">
+                          <a class="nav-link active" data-toggle="tab" href="#basic-info" role="tab"> 
+                              <span class="hidden-xs-down">Basic Information</span>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#lots-info" role="tab">
+                              <span class="hidden-xs-down">Lots Information</span>
+                          </a>
+                      </li>
+                      <button class="btn btn-success justify-content-end save-btn">Save Project</button>
+                  </ul>
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                      <div class="tab-pane active" id="basic-info" role="tabpanel">
+                          <div class="p-20">
+                              <div class="row justify-content-flex-start">
+                                  <div style="width: 130px;">
+                                      <input type="file" id="input-file-now-custom-2" class="dropify" data-height="110" data-show-remove="false">
+                                  </div>
+                                  <div class="col-md-10" style="margin-top: 80px">
+                                      <form class="floating-labels">
+                                          <div class="form-group">
+                                              <input type="text" class="form-control" id="projectName" />
+                                              <span class="bar"></span>
+                                              <label class="font-light" for="projectName">Project Name</label>
+                                          </div>
+                                          <br>
+                                      </form>
+                                  </div>
+                              </div>
+
+                              <div class="row">
+                                  <div class="col-md-4">
+                                      <h6>Full Address</h6>
+                                      <form class="floating-labels m-t-40">
+                                          <div class="form-group m-b-40">
+                                              <input type="text" class="form-control" id="address1">
+                                              <span class="bar"></span>
+                                              <label for="address1">Address 1</label>
+                                          </div>
+                                          <div class="form-group m-b-40">
+                                              <input type="text" class="form-control" id="address2">
+                                              <span class="bar"></span>
+                                              <label for="address2">Address 2</label>
+                                          </div>
+                                          <div class="row">
+                                              <div class="form-group m-b-40 col-6">
+                                                  <input type="text" class="form-control" id="town/city">
+                                                  <span class="bar"></span>
+                                                  <label for="town/city">Town/City</label>
+                                              </div>
+                                              <div class="form-group m-b-40 col-6">
+                                                  <input type="text" class="form-control" id="state/province">
+                                                  <span class="bar"></span>
+                                                  <label for="state/province">State/Province</label>
+                                              </div>
+                                              <div class="form-group m-b-40 col-6">
+                                                  <input type="text" class="form-control" id="zipcode">
+                                                  <span class="bar"></span>
+                                                  <label for="zipcode">Zipcode</label>
+                                              </div>
+                                          </div>
+                                          <div class="form-group m-b-40">
+                                              <a target="_blank" class="btn btn-outline-inverse" (click)="showMap()" href="{{mapLink}}" style="width:100%; padding:10px;">
+                                                  <i class="fa fa-location-arrow"></i> Google Map
+                                              </a>
+                                          </div>
+                                      </form>
+                                      <form class="form-material m-t-40">
+                                          <div class="form-group">
+                                              <label>Documents/Contracts</label>
+                                              <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                                  <div class="form-control" data-trigger="fileinput">
+                                                      <i class="glyphicon glyphicon-file fileinput-exists"></i>
+                                                      <span class="fileinput-filename"></span>
+                                                  </div>
+                                                  <span class="input-group-addon btn btn-default btn-file"> 
+                                                  <span class="fileinput-new">Select file</span>
+                                                  <span class="fileinput-exists">Change</span>
+                                                  <input type="hidden">
+                                                  <input type="file" name="...">
+                                                  </span>
+                                                  <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                              </div>
+                                          </div>
+                                      </form>
+                                  </div>
+
+                                  <div class="col-md-4">
+                                      <h6><label for="uploadVicinityMap">Upload Vicinity Map</label></h6>
+                                      <input type="file" id="uploadVicinityMap" class="dropify" />
+                                      <br>
+                                      <h6><label for="uploadPropertyMap">Upload Property Map</label></h6>
+                                      <input type="file" id="uploadPropertyMap" class="dropify" />
+                                  </div>
+
+                                  <div class="col-md-4">
+                                      <h6>Project Details</h6>
+                                      <form class="form-material m-t-40">
+                                          <div class="form-group row">
+                                              <div class="col-4">
+                                                  <label>Construction Date:</label>
+                                              </div>
+                                              <div class="col-8">
+                                                  <input type="date" class="form-control">
+                                              </div>
+                                          </div>
+                                          <div class="form-group row">
+                                              <div class="col-4">
+                                                  <label>Date Completion:</label>
+                                              </div>
+                                              <div class="col-8">
+                                                  <input type="date" class="form-control">
+                                              </div>
+                                          </div>
+                                          <div class="form-group row">
+                                              <div class="col-4">
+                                                  <label>Land Area:</label>
+                                              </div>
+                                              <div class="input-group col-7">
+                                                  <input type="text" class="form-control" aria-describedby="squareMeter">
+                                                  <div class="input-group-append">
+                                                      <span class="input-group-text align-self-center" id="squareMeter">sqm</span>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div class="form-group">
+                                              <label for="numberOfLots">Number of Lots</label>
+                                              <select id="numberOfLots" class="form-control">
+                                                      <option>1</option>
+                                                      <option>2</option>
+                                                      <option>3</option>
+                                                      <option>4</option>
+                                                      <option>5</option>
+                                                  </select><br>
+                                              <label for="numberOfBlock">Number of Block</label>
+                                              <select id="numberOfBlock" class="form-control">
+                                                      <option>1</option>
+                                                      <option>2</option>
+                                                      <option>3</option>
+                                                      <option>4</option>
+                                                      <option>5</option>
+                                                  </select>
+                                          </div>
+                                          <div class="form-group">
+                                              <label>Features, Amenities and Facilities</label>
+                                          </div>
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="tab-pane p-20" id="lots-info" role="tabpanel">
+                          <div class="row">
+                              <div class="col-md-5">
+                                  <div class="card" style="padding: 5px;">
+                                      <div class="card-body">
+                                          <h4 class="card-title">Lot Details</h4>
+                                          <div class="card-text">
+                                              <form class="floating-labels m-t-40">
+                                                  <div class="row">
+                                                      <div class="form-group m-b-40 col-6">
+                                                          <input type="text" class="form-control" id="lotno">
+                                                          <span class="bar"></span>
+                                                          <label for="lotno">Lot No.</label>
+                                                      </div>
+                                                      <div class="form-group m-b-40 col-6">
+                                                          <input type="text" class="form-control" id="blockno">
+                                                          <span class="bar"></span>
+                                                          <label for="blockno">Block No.</label>
+                                                      </div>
+                                                  </div>
+                                                  <div class="form-group m-b-40">
+                                                      <input type="text" class="form-control" id="location">
+                                                      <span class="bar"></span>
+                                                      <label for="location">Location</label>
+                                                  </div>
+                                                  <div class="row">
+                                                      <div class="form-group m-b-40 col-4">
+                                                          <input type="text" class="form-control" id="lotarea">
+                                                          <span class="bar"></span>
+                                                          <label for="lotarea">Lot Area</label>
+                                                      </div>
+                                                      <div class="col-2">
+                                                          <label>sqm</label>
+                                                      </div>
+                                                      <div class="form-group m-b-40 col-4">
+                                                          <input type="text" class="form-control" id="endunit">
+                                                          <span class="bar"></span>
+                                                          <label for="endunit">End Unit House Area</label>
+                                                      </div>
+                                                      <div class="col-2">
+                                                          <label>sqm</label>
+                                                      </div>
+                                                  </div>
+                                                  <div class="row">
+                                                      <div class="form-group m-b-40 col-4">
+                                                          <input type="text" class="form-control" id="price">
+                                                          <span class="bar"></span>
+                                                          <label for="price">Price</label>
+                                                      </div>
+                                                      <div class="col-2">
+                                                          <label>php</label>
+                                                      </div>
+                                                  </div>
+                                              </form>
+                                          </div>
+                                          <h6><label for="uploadSurveryorsMap">Upload Surveyor's Map</label></h6>
+                                          <input type="file" id="uploadSurveryorsMap" class="dropify" />
+                                          <br>
+                                          <h6>Description</h6>
+                                          <button type="button" class="btn btn-outline-inverse">
+                                                  <i class="fa fa-image"></i>
+                                              </button>
+                                          <button type="button" class="btn btn-outline-inverse">
+                                              <i class="ti-plus"></i>
+                                          </button>
+                                          <div class="text-right">
+                                              <a href="#" class="btn btn-inverse">Add Lots -></a>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="col-md-7">
+                                  <div class="row">
+                                      <div class="col-md-3 align-self-center">
+                                          <h4>Number of Lots: 60/0</h4>
+                                      </div>
+                                      <div class="col-md-4 align-self-center">
+                                          <h4>Number of Blocks: 8/0</h4>
+                                      </div>
+                                      <div class="col-md-5">
+                                          <div class="d-flex m-t-10 justify-content-end">
+                                              <ul id="right-menulist-modal" style="padding-right: 5px;">
+                                                  <li class="nav-item hidden-sm-down search-box">
+                                                      <a href="javascript:void(0)" aria-expanded="false"> 
+                                                          <span class="hide-menu">Sort</span>
+                                                          <i class="fa fa-sort"></i>
+                                                      </a>
+                                                  </li>
+                                                  <li>
+                                                      <a href="#" aria-expanded="false">
+                                                          <span class="hide-menu">List</span>
+                                                          <i class="mdi mdi-view-list"></i>
+                                                      </a>
+                                                  </li>
+                                                  <li>
+                                                      <a href="#" aria-expanded="false">
+                                                          <span class="hide-menu">Grid</span>
+                                                          <i class="mdi mdi-view-grid"></i>
+                                                      </a>
+                                                  </li>
+                                              </ul>
+                                          </div>
+                                      </div>
+                                      <div class="table-responsive">
+                                          <table class="table full-color-table full-inverse-table hover-table">
+                                              <thead>
+                                                  <tr>
+                                                      <th>Lot No.</th>
+                                                      <th>Block No.</th>
+                                                      <th>Location</th>
+                                                      <th>Lot Area</th>
+                                                      <th>House Area</th>
+                                                      <th>Price</th>
+                                                      <th>Map</th>
+                                                  </tr>
+                                              </thead>
+                                              <tbody>
+                                                  <tr>
+                                                      <td>1</td>
+                                                      <td>1A</td>
+                                                      <td>Balete Park Drive, East</td>
+                                                      <td>300 sqm</td>
+                                                      <td>270 sqm</td>
+                                                      <td>php 2,853,700</td>
+                                                      <td>map</td>
+                                                  </tr>
+                                              </tbody>
+                                          </table>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="modal-footer justify-content-center">
+                      <button class="btn btn-outline-info footer-btn">Previous</button>
+                      <button class="btn btn-outline-info footer-btn">Next</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <!-- House Managemenet -->
+  <div class="row" *ngIf="isHouse">
+      <div class="col-lg-3 col-md-6 body-padding">
+          <div class="card">
+              <div class="card-body">
+                  <p class="card-text text-right"><i class="fa fa-eye"></i>&nbsp;View</p>
+                  <h4 class="m-b-0 font-light" style="margin-top: 100px;">Topaz Home Plan</h4>
+                  <h4 class="font-light">Model</h4>
+                  <h5 class="text-muted m-t-30 m-b-0">php xxxxxxxx</h5>
+              </div>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-6 body-padding">
+          <div class="card">
+              <div class="card-body">
+                  <p class="card-text text-right"><i class="fa fa-eye"></i>&nbsp;View</p>
+                  <h4 class="m-b-0 font-light" style="margin-top: 100px;">Sapphire Cali-sun</h4>
+                  <h4 class="font-light">Model</h4>
+                  <h5 class="text-muted m-t-30 m-b-0">php xxxxxxxx</h5>
+              </div>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-6 body-padding">
+          <div class="card">
+              <div class="card-body">
+                  <p class="card-text text-right"><i class="fa fa-eye"></i>&nbsp;View</p>
+                  <h4 class="m-b-0 font-light" style="margin-top: 100px;">Jade Summer Love</h4>
+                  <h4 class="font-light">Model</h4>
+                  <h5 class="text-muted m-t-30 m-b-0">php xxxxxxxx</h5>
+              </div>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-6 body-padding">
+          <div class="card">
+              <div class="card-body">
+                  <p class="card-text text-right"><i class="fa fa-eye"></i>&nbsp;View</p>
+                  <h4 class="m-b-0 font-light" style="margin-top: 100px;">Bloomfield Emerald</h4>
+                  <h4 class="font-light">Model</h4>
+                  <h5 class="text-muted m-t-30 m-b-0">php xxxxxxxx</h5>
+              </div>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-6 body-padding">
+          <div class="card">
+              <div class="card-body">
+                  <p class="card-text text-right"><i class="fa fa-eye"></i>&nbsp;View</p>
+                  <h4 class="m-b-0 font-light" style="margin-top: 100px;">Amber Sweet Dream</h4>
+                  <h4 class="font-light">Model</h4>
+                  <h5 class="text-muted m-t-30 m-b-0">php xxxxxxxx</h5>
+              </div>
+          </div>
+      </div>
+      <div class="col-lg-3 col-md-6 body-padding">
+          <div class="card text-center">
+              <div class="card-body">
+                  <div class="m-l-10 align-self-center">
+                      <a href="#" aria-expanded="false" data-toggle="modal" data-target=".house-modal">
+                          <div class="round round-lg align-self-center round-info"><i class="ti ti-plus"></i></div>
+                          <h5 class="m-b-0 font-light">Create New Suggested House</h5>
+                      </a>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- create new modal - house management -->
+  <div class="modal fade wizard-content house-modal" tabindex="-1" role="dialog" aria-labelledby="houseModalLabel" aria-hidden="true"
+      style="display: none;">
+      <div class="modal-dialog modal-full">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h4 class="modal-title" id="houseModalLabel">Create New House Model Wizard</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+              </div>
+              <div class="modal-body">
+                  <!-- Nav tabs -->
+                  <ul class="nav nav-tabs customtab" role="tablist">
+                      <li class="nav-item">
+                          <a class="nav-link active" data-toggle="tab" href="#house-basic-info" role="tab">
+                              <span class="hidden-sm-up"><i class="ti-home"></i></span> 
+                              <span class="hidden-xs-down">Basic Info</span>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#floor-plan" role="tab">
+                              <span class="hidden-sm-up"><i class="ti-user"></i></span> 
+                              <span class="hidden-xs-down">Floor Plan</span>
+                          </a>
+                      </li>
+                      <li class="nav-item">
+                          <a class="nav-link" data-toggle="tab" href="#image-gallery" role="tab">
+                              <span class="hidden-sm-up"><i class="ti-email"></i></span> 
+                              <span class="hidden-xs-down">Image Gallery</span>
+                          </a>
+                      </li>
+                      <button class="btn btn-success justify-content-end save-btn">Save New Model</button>
+                  </ul>
+                  <!-- Tab panes -->
+                  <div class="tab-content">
+                      <div class="tab-pane active" id="house-basic-info" role="tabpanel">
+                          <div class="p-20">
+                              <div class="row justify-content-flex-start">
+                                  <div style="width: 130px;">
+                                      <input type="file" id="input-file-now-custom-2" class="dropify" data-height="110" data-show-remove="false">
+                                  </div>
+                                  <div class="col-md-10" style="margin-top: 80px">
+                                      <form class="floating-labels">
+                                          <div class="form-group">
+                                              <input type="text" class="form-control" id="houseModel" />
+                                              <span class="bar"></span>
+                                              <label class="font-light" for="houseModel">House Model</label>
+                                          </div>
+                                          <br>
+                                      </form>
+                                  </div>
+                                  <div class="col-md-6">
+                                      <form class="floating-labels">
+                                          <div class="row">
+                                              <div class="form-group m-b-40 col-4">
+                                                  <input type="text" class="form-control" id="house-price">
+                                                  <span class="bar"></span>
+                                                  <label for="house-price">Price</label>
+                                              </div>
+                                              <div class="col-2">
+                                                  <label>php</label>
+                                              </div>
+                                          </div>
+                                          <div class="row">
+                                              <div class="form-group m-b-40 col-4">
+                                                  <input type="text" class="form-control" id="floor-area">
+                                                  <span class="bar"></span>
+                                                  <label for="floor-area">Floor Area</label>
+                                              </div>
+                                              <div class="col-2">
+                                                  <label>sqm</label>
+                                              </div>
+                                          </div>
+                                          <h6 class="m-b-40">Main Features</h6>
+                                          <div class="row">
+                                              <div class="form-group m-b-40 col-5">
+                                                  <input type="text" class="form-control" id="bedrooms">
+                                                  <span class="bar"></span>
+                                                  <label for="bedrooms">Bedrooms</label>
+                                              </div>
+                                          </div>
+                                      </form>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="tab-pane p-20" id="floor-plan" role="tabpanel">
+                          <h5>Upload Image</h5><br>
+                          <div class="row">
+                              <div class="col-md-2">
+                                  <input type="file" id="input-file-now-custom-2" class="dropify" data-height="170">
+                                  <textarea class="form-control" style="margin-top:5px; font-size: 15px;" rows="1" placeholder="description"></textarea>
+                              </div>
+                              <div class="col-md-2" style="padding-left:0px;">
+                                  <button class="btn btn-outline-inverse">+</button>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="tab-pane p-20" id="image-gallery" role="tabpanel">
+                          <h5>Upload Image</h5><br>
+                          <div class="row">
+                              <div class="col-md-2">
+                                  <input type="file" id="input-file-now-custom-2" class="dropify" data-height="170">
+                                  <textarea class="form-control" style="margin-top:5px; font-size: 15px;" rows="1" placeholder="description"></textarea>
+                              </div>
+                              <div class="col-md-2" style="padding-left:0px;">
+                                  <button class="btn btn-outline-inverse">+</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-danger waves-effect text-left" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

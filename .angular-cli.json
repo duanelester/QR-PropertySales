@@ -21,7 +21,30 @@
       "styles": [
         "styles.css"
       ],
-      "scripts": [],
+      "scripts": [
+        "../src/assets/plugins/jquery/jquery.min.js",
+        "../src/assets/plugins/bootstrap/js/popper.min.js",
+        "../src/assets/plugins/bootstrap/js/bootstrap.min.js",
+        "../src/assets/js/jquery.slimscroll.js",
+        "../src/assets/js/waves.js",
+        "../src/assets/js/sidebarmenu.js",
+        "../src/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js",
+        "../src/assets/plugins/sparkline/jquery.sparkline.min.js",
+        "../src/assets/js/custom.min.js",
+        "../src/assets/plugins/chartist-js/dist/chartist.min.js",
+        "../src/assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.min.js",
+        "../src/assets/plugins/d3/d3.min.js",
+        "../src/assets/plugins/c3-master/c3.min.js",
+        "../src/assets/js/dashboard1.js",
+        "../src/assets/plugins/styleswitcher/jQuery.style.switcher.js",
+        "../src/assets/plugins/dropify/dist/js/dropify.min.js",
+        "../src/assets/js/jasny-bootstrap.js",
+        "../src/assets/plugins/x-editable/dist/bootstrap3-editable/js/bootstrap-editable.js",
+        "../src/assets/plugins/jquery-steps-master/build/jquery.steps.min.js",
+        "../src/assets/plugins/lightslider/src/js/lightslider.js",
+        "../src/assets/plugins/moment/moment.js",
+        "../src/assets/js/myjs.js"
+      ],
       "environmentSource": "environments/environment.ts",
       "environments": {
         "dev": "environments/environment.ts",

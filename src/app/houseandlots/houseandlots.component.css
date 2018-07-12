@@ -1,0 +1,65 @@
+.title-padding {
+    padding-bottom: 0px; 
+    padding-top: 0px;
+}
+
+.body-padding {
+    padding-right: 7px;
+    padding-left: 7px;
+}
+
+#right-menulist li {
+    float: left;
+    padding-left: 30px;
+}
+
+#right-menulist {
+    list-style-type: none;
+}
+
+#right-menulist-modal {
+    list-style-type: none;
+}
+
+#right-menulist-modal li {
+    float: left;
+    padding-left: 10px;
+}
+
+#select-title {
+    padding-left: 0px;
+    list-style-type: none;
+    margin-left: 0px;
+}
+
+#select-title li {
+    float: left;
+    padding: 0px 5px 5px 5px;
+}
+
+.modal-full {
+    min-width: 100%;
+    margin: 0;
+}
+
+.modal-full .modal-content {
+    min-height: 100vh;
+}
+
+.card {
+    margin-bottom: 15px;
+}
+
+.selected-menu {
+    color: #0056b3;
+}
+
+.footer-btn {
+    width: 100px;
+}
+
+.save-btn {
+    margin-left: auto;
+    margin-top: 15px;
+    height: 35px;
+}
